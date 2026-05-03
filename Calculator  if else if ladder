@@ -1,0 +1,44 @@
+import java.util.Scanner;
+public class main{
+    public static void main(String[]args){
+        Scanner sc = new Scanner(System.in);
+        
+    System.out.println("Enter first number ");
+    int a = sc.nextInt();
+    
+    System.out.println("Enter second number ");
+    int b = sc.nextInt();
+    
+    System.out.println("Enter operator from + - * % / // ");
+    char c = sc.next().charAt(0);
+    
+    double result;
+    
+    if (c == '+') {
+        result = a + b;
+        System.out.println("Addition is " + result);
+    }else if (c == '-'){
+        result = a - b;
+        System.out.println("Substraction is " + result);
+    }else if (c == '*'){
+        result = a * b;
+        System.out.println("Multiplication is " + result);
+    }else if (c == '/'){
+       if(b!= 0){
+           result = a / b;
+          System.out.println("Division is " + result);
+       }else  {
+           System.out.println("not divisible by zero");
+       }
+        }
+  
+    else if (c == '%'){
+        result = a % b;
+        System.out.println("Mod is " + result);
+    }
+     else 
+        System.out.println("invalid operation");
+           
+    sc.close();
+    }
+}
