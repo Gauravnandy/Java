@@ -1,0 +1,33 @@
+import java.util.Scanner;
+class main{
+    public static void main(String [] args){
+        System.out.println("Welcome to Interest calculator !");
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Enter principle ");
+        double p = sc.nextDouble();
+        
+        System.out.println("Enter rate ");
+        double r = sc.nextDouble();
+        
+        System.out.println("Enter time ");
+        double t = sc.nextDouble();
+        
+        System.out.println("Which Interest u want to calculate , Simple or Compound");
+        String type = sc.next();
+        
+        double SI;
+        double CI;
+
+        if (type.equalsIgnoreCase("Simple") ){
+        SI = (p* r* t)/100;
+        System.out.println("SI is   - "+ SI);
+        }else if (type.equalsIgnoreCase("Compound")){
+            CI = p * Math.pow((1 + r/ 100), r) - p;
+            System.out.println("CI is - " + CI);
+            
+        }else{
+            System.out.println("INVALID");
+        }
+    }
+}
