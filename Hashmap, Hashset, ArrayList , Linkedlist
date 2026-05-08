@@ -1,0 +1,37 @@
+
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+
+        HashMap<Integer, Character> map = new HashMap<>();
+        
+        map.put(1, 'A');
+        map.put(2, 'B');
+        map.put(3, 'C');
+
+        System.out.println(map);
+        
+        
+        ArrayList<String> arr = new ArrayList<>();
+        arr.add("Gaurav ");
+        arr.add("Rahul");
+        List <String> arr1 =  Arrays.asList("shilpi","keya","Guru");
+        System.out.println(arr);
+        System.out.println(arr1);
+        
+        HashSet<Integer> set = new HashSet<>();
+        set.add(1);
+        set.add(2);
+        set.add(2);
+        set.add(3);
+        System.out.println(set);
+        
+        LinkedList<String> ll = new LinkedList<>();
+        ll.add("gaurav");
+        ll.add("sneha");
+        System.out.println(ll);
+        
+        
+    }
+}
