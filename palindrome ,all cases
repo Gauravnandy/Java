@@ -1,0 +1,87 @@
+#### normal code using for loop 
+import java.util.Scanner;
+class main{
+    public static void main(String[]args){
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println(" Enter a string");
+        String original = sc.nextLine();
+        String reversed = "";
+        
+        for(int i = original.length() - 1; i>=0 ; i--){
+            reversed += original.charAt(i);
+        }
+        
+        if(original.equals(reversed)){
+            System.out.println("palindrome");
+        }else{
+            System.out.println("no");
+        }
+        sc.close();
+    }
+}
+
+############# using inbuilt function , stringbuilder
+
+public class PalindromeShort {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String str = sc.nextLine();
+
+        String reversed = new StringBuilder(str).reverse().toString();
+
+        if (str.equals(reversed)) {
+            System.out.println("Palindrome");
+        } else {
+            System.out.println("Not Palindrome");
+        }
+
+        sc.close();
+    }
+}
+
+########## ignoring spaces , punctuation , and uppercase letter 
+
+import java.util.Scanner;
+
+public class PalindromeSentence {
+
+    static boolean isPalindrome(String str) {
+
+        // Remove spaces and special characters
+        str = str.replaceAll(" ", "").toLowerCase();
+
+        int left = 0;
+        int right = str.length() - 1;
+
+        while (left < right) {
+
+            if (str.charAt(left) != str.charAt(right)) {
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter text: ");
+        String input = sc.nextLine();
+
+        if (isPalindrome(input)) {
+            System.out.println("Palindrome");
+        } else {
+            System.out.println("Not Palindrome");
+        }
+
+        sc.close();
+    }
+}
