@@ -1,0 +1,60 @@
+import java.util.*;
+
+class Journey {
+    String vehicleNo;
+    String entryToll;
+
+    Journey(String vehicleNo, String entryToll) {
+        this.vehicleNo = vehicleNo;
+        this.entryToll = entryToll;
+    }
+}
+
+public class Main {
+
+    static Map<String, Journey> activeJourneys = new HashMap<>();
+
+    static Map<String, Integer> distanceMap = new HashMap<>();
+
+    public static void main(String[] args) {
+
+        distanceMap.put("Toll1-Toll2", 50);
+        distanceMap.put("Toll1-Toll3", 120);
+        distanceMap.put("Toll2-Toll3", 70);
+
+        vehicleEntry("KA01", "Toll1");
+
+        vehicleExit("KA01", "Toll3");
+    }
+
+    static void vehicleEntry(String vehicleNo, String tollName) {
+
+        Journey journey = new Journey(vehicleNo, tollName);
+
+        activeJourneys.put(vehicleNo, journey);
+
+        System.out.println(vehicleNo + " entered from " + tollName);
+    }
+
+    static void vehicleExit(String vehicleNo, String exitToll) {
+
+        if (!activeJourneys.containsKey(vehicleNo)) {
+            System.out.println("No active journey found");
+            return;
+        }
+
+        Journey journey = activeJourneys.get(vehicleNo);
+
+        String route = journey.entryToll + "-" + exitToll;
+
+        int distance = distanceMap.getOrDefault(route, 0);
+
+        int fare = distance * 2;
+
+        System.out.println("Vehicle: " + vehicleNo);
+        System.out.println("Distance: " + distance);
+        System.out.println("Fare: " + fare);
+
+        activeJourneys.remove(vehicleNo);
+    }
+}
