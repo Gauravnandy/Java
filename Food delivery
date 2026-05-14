@@ -1,0 +1,258 @@
+import java.util.*;
+
+// ---------------- ENUM ----------------
+enum OrderStatus {
+    PLACED,
+    PREPARING,
+    OUTFORDELIVERY,
+    DELIVERED,
+    CANCELLED
+}
+
+// ---------------- ORDER CLASS ----------------
+class Order {
+    private int orderId;
+    private int hotelId;
+    private int customerId;
+    private double orderValue;
+    private double distance;
+    private OrderStatus status;
+
+    public Order(int orderId, int hotelId, int customerId,
+                 double orderValue, double distance) {
+
+        this.orderId = orderId;
+        this.hotelId = hotelId;
+        this.customerId = customerId;
+        this.orderValue = orderValue;
+        this.distance = distance;
+        this.status = OrderStatus.PLACED;
+    }
+
+    // Getters
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public double getOrderValue() {
+        return orderValue;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    // Update Status
+    public void updateStatus(OrderStatus newStatus) {
+        this.status = newStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", hotelId=" + hotelId +
+                ", customerId=" + customerId +
+                ", orderValue=" + orderValue +
+                ", distance=" + distance +
+                ", status=" + status +
+                '}';
+    }
+}
+
+// ---------------- HOTEL CLASS ----------------
+class Hotel {
+    private int hotelId;
+    private String hotelName;
+
+    public Hotel(int hotelId, String hotelName) {
+        this.hotelId = hotelId;
+        this.hotelName = hotelName;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public String getHotelName() {
+        return hotelName;
+    }
+}
+
+// ---------------- CUSTOMER CLASS ----------------
+class Customer {
+    private int customerId;
+    private String customerName;
+
+    public Customer(int customerId, String customerName) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+}
+
+// ---------------- ORDER MANAGER ----------------
+class OrderManager {
+
+    private Map<Integer, Order> orders = new HashMap<>();
+
+    // Place Order
+    public void placeOrder(Order order) {
+        orders.put(order.getOrderId(), order);
+        System.out.println("Order Placed Successfully");
+    }
+
+    // Update Order Status
+    public void updateOrderStatus(int orderId, OrderStatus status) {
+
+        Order order = orders.get(orderId);
+
+        if (order != null) {
+            order.updateStatus(status);
+            System.out.println("Order Status Updated");
+        } else {
+            System.out.println("Order Not Found");
+        }
+    }
+
+    // Get Order By ID
+    public Order getOrder(int orderId) {
+        return orders.get(orderId);
+    }
+
+    // Display All Orders
+    public void displayAllOrders() {
+
+        for (Order order : orders.values()) {
+            System.out.println(order);
+        }
+    }
+
+    // Total Revenue
+    public double getTotalRevenue() {
+
+        double total = 0;
+
+        for (Order order : orders.values()) {
+
+            if (order.getStatus() == OrderStatus.DELIVERED) {
+                total += order.getOrderValue();
+            }
+        }
+
+        return total;
+    }
+
+    // Count Orders By Status
+    public int countOrdersByStatus(OrderStatus status) {
+
+        int count = 0;
+
+        for (Order order : orders.values()) {
+
+            if (order.getStatus() == status) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    // Average Order Value
+    public double getAverageOrderValue() {
+
+        if (orders.size() == 0) {
+            return 0;
+        }
+
+        double total = 0;
+
+        for (Order order : orders.values()) {
+            total += order.getOrderValue();
+        }
+
+        return total / orders.size();
+    }
+}
+
+// ---------------- MAIN CLASS ----------------
+public class Main {
+
+    public static void main(String[] args) {
+
+        OrderManager manager = new OrderManager();
+
+        // Hotels
+        Hotel h1 = new Hotel(101, "Pizza Hub");
+        Hotel h2 = new Hotel(102, "Burger Point");
+        Hotel h3 = new Hotel(103, "Chulbul Dhaba");
+
+        
+
+        // Customers
+        Customer c1 = new Customer(1, "Gaurav");
+        Customer c2 = new Customer(2, "Rahul");
+
+        // Orders
+        Order o1 = new Order(1001, h1.getHotelId(),
+                c1.getCustomerId(), 450, 5.2);
+
+        Order o2 = new Order(1002, h2.getHotelId(),
+                c2.getCustomerId(), 300, 3.5);
+        Order o3 = new Order(1003, h3.getHotelId(),
+                c2.getCustomerId(), 390, 3.9);        
+
+        // Place Orders
+        manager.placeOrder(o1);
+        manager.placeOrder(o2);
+        manager.placeOrder(o3);
+
+        
+
+        // Update Status
+        manager.updateOrderStatus(1001, OrderStatus.PREPARING);
+        manager.updateOrderStatus(1001, OrderStatus.OUTFORDELIVERY);
+        manager.updateOrderStatus(1001, OrderStatus.DELIVERED);
+
+        manager.updateOrderStatus(1002, OrderStatus.CANCELLED);
+        manager.updateOrderStatus(1003, OrderStatus.CANCELLED);
+
+        
+
+        // Display Orders
+        System.out.println("\nAll Orders:");
+        manager.displayAllOrders();
+
+        // Statistics
+        System.out.println("\nTotal Revenue: "
+                + manager.getTotalRevenue());
+
+        System.out.println("Delivered Orders: "
+                + manager.countOrdersByStatus(OrderStatus.DELIVERED));
+
+        System.out.println("Cancelled Orders: "
+                + manager.countOrdersByStatus(OrderStatus.CANCELLED));
+
+        System.out.println("Average Order Value: "
+                + manager.getAverageOrderValue());
+    }
+}
