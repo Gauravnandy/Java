@@ -1,0 +1,74 @@
+// online ide
+ class EmailService{
+      public static void main(String[]args){
+        //create dependency object
+        EmailService emailService = new EmailService();
+        // inject dependency into UserService
+        UserService userService = new UserService(emailService);
+        // call method
+        userService.registerUser("Gaurav");
+        
+        userService.registerUser("rahul");
+        userService.registerUser("ranveer");
+
+    }
+     
+    public void sendEmail(String message){
+        System.out.println("Email Sent! :" +message);
+    }
+}
+//service class that depends on EmailService
+class UserService{
+    private EmailService emailService;
+    
+    // dependency injection through constructor
+public UserService(EmailService emailService){
+    this.emailService = emailService;
+}
+public void registerUser(String name){
+    System.out.println("User Registered : "+ name);
+    
+    emailService.sendEmail("Welcome "+ name );
+}
+}
+public class main{
+   
+}
+
+///normal IDE
+
+
+ class EmailService{
+    public void sendEmail(String message){
+        System.out.println("Email Sent! :" +message);
+    }
+}
+//service class that depends on EmailService
+class UserService{
+    private EmailService emailService;
+    
+    // dependency injection through constructor
+public UserService(EmailService emailService){
+    this.emailService = emailService;
+}
+public void registerUser(String name){
+    System.out.println("User Registered : "+ name);
+    
+    emailService.sendEmail("Welcome "+ name );
+}
+}
+public class main{
+    public static void main(String[]args){
+        //create dependency object
+        EmailService emailService = new EmailService();
+        // inject dependency into UserService
+        UserService userService = new UserService(emailService);
+        // call method
+        userService.registerUser("Gaurav");
+        
+        userService.registerUser("rahul");
+        userService.registerUser("ranveer");
+
+    }
+}
+
