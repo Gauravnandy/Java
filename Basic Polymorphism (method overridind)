@@ -1,3 +1,4 @@
+/////method overriding = runtime time polymorphism
 class main{
     public static void main(String[]args){
      
