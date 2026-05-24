@@ -1,0 +1,55 @@
+Word Scramble
+
+you are running a class and suspect that some of ur students are passing around the answers to mcq disguised as random strings.
+Given a list of words and a string , find which word on the list is crambled ip inside the string ,if any . There will be at most one matching word. the lettes dont need to be contiguous.
+
+Question:
+
+your task is to write a function that to find and return the word from the list that si scrambled inside the string, if any exists. If none exists, return result "-" as a string .  
+There will be at most one matching word . letters dont need to be in order , letters cant be reused
+
+Code:
+
+import java. util.*;
+class main{
+    public static void main(String []args){
+        String[] words={ "tat" , "dog", "cow" };
+        String str ="tdcaowg";
+        
+        System.out.println(findWord(words, str));
+    }
+        
+        public static String findWord(String[] words, String str){
+            // creats a hashmap to store frequency of characters in str
+            HashMap<Character , Integer>strMap = new HashMap<>();
+            // toCharArray converts string to array of Characters
+            for(char ch : str.toCharArray()){
+                
+                strMap.put(ch, strMap.getOrDefault(ch,0) +1);
+            }
+               //we check each word
+                for(String word : words ){
+                // stores frequency of letters in the current word
+                HashMap<Character, Integer> wordMap = new HashMap<>();
+                
+                for(char ch : word.toCharArray()){
+                    wordMap.put(ch, wordMap.getOrDefault(ch, 0) +1);
+                }
+                    Boolean match = true;
+                    // gets all the keys
+                    for(char ch : wordMap.keySet()){
+                        if(strMap.getOrDefault(ch,0)<wordMap.get(ch)){
+                            match = false;
+                            break;    
+                        }    
+                    }            
+                    
+                    if(match){
+                        return word;
+                    }
+                }
+        
+                 return "-";
+        
+              }
+            }
