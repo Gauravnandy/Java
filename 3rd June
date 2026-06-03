@@ -1,0 +1,100 @@
+import java.util.*;  
+public class main {
+    public static void main(String[] args){
+        Run run1 = new Run(Arrays.asList(10, 20, 30),true);
+        Run run2 = new Run(Arrays.asList(12, 21, 19),true);
+        Run run3 = new Run(Arrays.asList(10, 20),false); 
+        Run run4 = new Run(Arrays.asList(10, 16, 24), true);
+        
+        RunCollection collection = new RunCollection();
+        
+        collection.addRun(run1);
+        collection.addRun(run2);
+        collection.addRun(run3);
+        collection.addRun(run4);
+
+        
+        int result = collection.bestOfBests();
+        
+        System.out.println("Best of Bests is " + result);
+    }
+
+    }
+  
+class Run{
+    private List<Integer> obstacleTimes;
+    private boolean completed;
+    
+    public Run(List<Integer> obstacleTimes, boolean completed){
+        this.obstacleTimes = obstacleTimes;
+        this.completed = completed;
+    }
+    
+    public List<Integer> getObstacleTimes(){
+        return obstacleTimes;
+    }
+    
+    public boolean isCompleted(){
+        return completed;
+    }
+}
+
+class RunCollection{
+    private List<Run> runs;
+    
+    public  RunCollection(){
+        this.runs = new ArrayList<>();
+    }
+    
+    public void addRun(Run run){
+        runs.add(run);
+    }
+    
+    public int bestOfBests(){
+        
+        if(runs.isEmpty()){
+            return 0;
+        }
+        
+        int obstacleCount = 0;
+        
+        for(Run run : runs){
+            obstacleCount = Math.max(obstacleCount, run.getObstacleTimes().size());
+        }
+        int total = 0;
+        for(int i = 0; i < obstacleCount; i++){
+            int bestTime = Integer.MAX_VALUE;
+            
+            for(Run run : runs){
+                if(run.getObstacleTimes().size() > i){
+                     
+                     bestTime = Math.min(
+                         bestTime, run.getObstacleTimes().get(i));
+                }
+            }
+            
+            if(bestTime != Integer.MAX_VALUE){
+                total += bestTime;
+            }
+        }
+        return total;
+    }
+    
+}
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
