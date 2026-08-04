@@ -1,0 +1,51 @@
+//   is prime 
+import java.util.*;
+class main{
+    public static void main(String args[]){
+        System.out.println("enter a string");
+        Scanner sc = new Scanner(System.in);
+        String original = sc.nextLine();
+        original = original.replace(" ", "").toLowerCase();
+        
+        String reversed = "";
+        
+        for(int i = original.length()- 1; i>=0; i--){
+            reversed += original.charAt(i);
+        }
+        if (original.equals(reversed)){
+            System.out.println("palindrome");
+            
+        }else{
+            System.out.println("not palindrome");
+        }
+        
+        
+}
+}
+
+//  is palindrome
+import java.util.*;
+class main{
+    public static void main(String args[]){
+        System.out.println("enter a string");
+        Scanner sc = new Scanner(System.in);
+        int p = sc.nextInt();
+        boolean isPrime = true;
+        
+        if(p<=1){
+            isPrime = false;
+            
+        }else{
+            for(int i=2 ; i<p; i++){
+                if(p%i ==0){
+                    isPrime =false;
+                }
+            }
+        }
+        if(isPrime){
+            System.out.println("prime");
+        }else{
+            System.out.println("not prime");
+        }
+}
+}
