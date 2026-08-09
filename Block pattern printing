@@ -1,0 +1,22 @@
+import java.util.Scanner;
+class main{
+    public static void main(String args[]){
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("enter number of lines");
+        int n = sc.nextInt();
+        Scanner times = new Scanner(System.in);
+        System.out.println("enter number of times");
+
+        int t = times.nextInt();
+        
+        for(int i=1; i<=n; i++){
+            for(int j=0; j<=t; j++){
+            System.out.print("* ");
+            }
+            System.out.println("");
+        }
+        }
+
+
+}
